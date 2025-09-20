@@ -1,10 +1,19 @@
+using eTickets.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
+AppDbInitializer.Seed(app); // Uygulama açýlýrken rastgele veri eklenir
+
+app.Run();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

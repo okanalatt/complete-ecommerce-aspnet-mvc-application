@@ -1,9 +1,9 @@
 namespace eTickets.Models
 {
-    public class ErrorViewModel
+    public class ErrorViewModel // ErrorViewModel class
     {
-        public string? RequestId { get; set; }
+        public string? RequestId { get; set; } // RequestId property
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId); // ShowRequestId property
     }
 }
