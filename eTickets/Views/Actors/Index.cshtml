@@ -1,0 +1,35 @@
+﻿@model IEnumerable<eTickets.Models.Actor>
+@{
+    ViewData["Title"] = "Actors List";
+}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🎬 Actors List</h2>
+
+    <table class="table table-bordered table-hover text-center align-middle shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th style="width:250px;">@Html.DisplayNameFor(model=>model.ProfilePictureURL)</th>
+                <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                <th>@Html.DisplayNameFor(model => model.Bio)</th>
+                <th style="width:300px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var actor in Model)
+            {
+                <tr>
+                    <td class="align-middle">
+                        <img src="@actor.ProfilePictureURL" alt="@actor.FullName"  class="rounded-circle" style="max-width:150px;"  />
+                    </td>
+                    <td class="fw-bold">@Html.DisplayFor(modelItem=>actor.FullName)</td>
+                    <td class="text-muted">@Html.DisplayFor(modelItem => actor.Bio)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@actor.ActorId" class="btn btn-sm btn-warning me-2">✏️ Edit</a>
+                        <a asp-action="Details" asp-route-id="@actor.ActorId" class="btn btn-sm btn-info me-2">📄 Details</a>
+                        <a asp-action="Delete" asp-route-id="@actor.ActorId" class="btn btn-sm btn-danger">🗑️ Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
