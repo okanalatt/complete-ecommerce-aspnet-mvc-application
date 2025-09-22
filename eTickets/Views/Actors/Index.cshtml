@@ -1,39 +1,98 @@
 ﻿@model IEnumerable<eTickets.Models.Actor>
+
 @{
     ViewData["Title"] = "Actors List";
-}
-<div class="container mt-4">
-    <h2 class="text-center mb-4">🎬 Actors List</h2>
 
-    <table class="table table-bordered table-hover text-center align-middle shadow-sm">
-        <thead class="table-dark">
-            <tr>
-                <th style="width:250px;">@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
-                <th>@Html.DisplayNameFor(model => model.FullName)</th>
-                <th>@Html.DisplayNameFor(model => model.Bio)</th>
-                <th style="width:300px;">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var actor in Model)
-            {
+    var firstActor = Model?.FirstOrDefault();
+    var properties = firstActor != null
+        ? firstActor.GetType().GetProperties()
+        : new System.Reflection.PropertyInfo[] { };
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4"><i class="bi bi-people-fill"></i> Actors List</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="text-center">No actors found.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover text-center align-middle shadow-sm">
+            <thead class="table-dark">
                 <tr>
-                    <td class="align-middle">
-                        <img src="@actor.ProfilePictureURL" alt="@actor.FullName" class="rounded-circle" style="width:200px; height:200px; object-fit:cover;" />
-                    </td>
-                    <td class="fw-bold">@Html.DisplayFor(modelItem => actor.FullName)</td>
-                    <td class="text-muted">@Html.DisplayFor(modelItem => actor.Bio)</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@actor.ActorId" class="btn btn-sm btn-warning me-2">✏️ Edit</a>
-                        <a asp-action="Details" asp-route-id="@actor.ActorId" class="btn btn-sm btn-info me-2">📄 Details</a>
-                        <a asp-action="Delete" asp-route-id="@actor.ActorId" class="btn btn-sm btn-danger">🗑️ Delete</a>
-                    </td>
+                    @foreach (var prop in properties)
+                    {
+                        if (prop.Name == "ProfilePictureURL")
+                        {
+                            <th style="width: 200px;">@prop.Name</th>
+                        }
+                        else if (prop.Name == "ActorId")
+                        {
+                            // ID kolonunu gizleyelim, lazım değil burada
+                        }
+                        else
+                        {
+                            <th>@prop.Name</th>
+                        }
+                    }
+                    <th style="width: 300px;">Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var actor in Model)
+                {
+                    <tr>
+                        @foreach (var prop in properties)
+                        {
+                            if (prop.Name == "ActorId")
+                            {
+                                // ID gizli, atla
+                            }
+                            else if (prop.Name == "ProfilePictureURL")
+                            {
+                                var url = prop.GetValue(actor) as string;
+                                <td class="align-middle">
+                                    @if (!string.IsNullOrEmpty(url))
+                                    {
+                                        <img src="@url" alt="@actor.FullName" class="rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover;" />
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">No Image</span>
+                                    }
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="align-middle">
+                                    @prop.GetValue(actor)
+                                </td>
+                            }
+                        }
+                        <td class="align-middle">
+                            <a asp-action="Edit" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-warning me-2">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-action="Details" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-info me-2">
+                                <i class="bi bi-file-earmark-text"></i> Details
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
 
 <div class="text-white">
-    <a asp-controller="Actors" asp-action="Create" class="btn btn-success position-fixed" style="bottom:20px; right:20px; border-radius:50%; width:70px; height:70px; font-size:24px; display:flex; align-items:center; justify-content:center;">Add New</a>
+    <a asp-controller="Actors" asp-action="Create" class="btn btn-success position-fixed"
+       style="bottom:20px; right:20px; border-radius:50%; width:70px; height:70px; font-size:24px;
+              display:flex; align-items:center; justify-content:center;"
+       title="Add New Actor">
+        <i class="bi bi-plus"></i>
+    </a>
 </div>

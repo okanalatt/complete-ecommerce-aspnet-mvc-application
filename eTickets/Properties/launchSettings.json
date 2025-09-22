@@ -1,22 +1,25 @@
 ﻿{
   "$schema": "https://json.schemastore.org/launchsettings.json",
+
+  //"Uygulama" "hangi","URL'den, hangi ortamda ve nasıl başlasın istiyorsan buradan ayarlanır.": null,
+
   "profiles": {
     "http": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "http://localhost:5230",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+      "commandName": "Project", //Projeyi dotnet run ile çalıştır.
+      "dotnetRunMessages": true, //dotnet run mesajlarını göster.
+      "launchBrowser": true, //Tarayıcıyı başlat.
+      "applicationUrl": "http://localhost:5230", //Uygulamanın çalışacağı URL.
+      "environmentVariables": { //Ortam değişkenleri.
+        "ASPNETCORE_ENVIRONMENT": "Development" //Geliştirme ortamı.
       }
     },
-    "https": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:7098;http://localhost:5230",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+    "https": { 
+      "commandName": "Project", //Projeyi dotnet run ile çalıştır.
+      "dotnetRunMessages": true, //dotnet run mesajlarını göster.
+      "launchBrowser": true, //Tarayıcıyı başlat.
+      "applicationUrl": "https://localhost:7098;http://localhost:5230", //Uygulamanın çalışacağı URL.
+      "environmentVariables": {  //Ortam değişkenleri.
+        "ASPNETCORE_ENVIRONMENT": "Development" //Geliştirme ortamı.
       }
     }
   }

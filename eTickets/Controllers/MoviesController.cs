@@ -11,6 +11,8 @@ namespace eTickets.Controllers
         {
             _context = context;
         }
+
+        //Get: Movies
         public async Task<IActionResult> Index()
         {
             var allMovies = await _context.Movies.
@@ -18,5 +20,41 @@ namespace eTickets.Controllers
                 ToListAsync();
             return View(allMovies);
         }
+
+        [Route("Movies/Error")]
+        public IActionResult Error()
+        { 
+            return View();
+        }
+        /*
+         * using eTickets.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace eTickets.Controllers
+{
+    public class MoviesController : Controller
+    {
+        private readonly AppDbContext _context;
+        public MoviesController(AppDbContext context)
+        {
+            _context = context;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var allMovies = await _context.Movies.
+                Include(c => c.Cinema).
+                ToListAsync();
+            return View(allMovies);
+        }
+        [Route("Movies/Error")]
+        public IActionResult Error()
+        { 
+            return View();
+        }
+    }
+}
+
+         */
     }
 }

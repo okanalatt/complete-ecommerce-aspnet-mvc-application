@@ -1,13 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
 
+	<!--
+ASP.NET Core Web uygulaması için gerekli olan SDK'yı tanımlar.
+Web uygulaması (MVC veya Razor Pages) yapmak için 'Microsoft.NET.Sdk.Web' kullanılır.
+-->
+<Project Sdk="Microsoft.NET.Sdk.Web">
+	
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <TargetFramework>net9.0</TargetFramework> <!--Bu proje .NET 9.0 framework'ü ile çalışacak.NET 9.0, .NET platformunun en yeni sürümlerinden biridir.-->
+
+	  <Nullable>enable</Nullable>
+	  <!-- Nullable referans türü özelliklerini etkinleştirir. Bu, null referans hatalarını önlemeye yardımcı olur.-->
+
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <!-- .NET 6.0 ve üzeri sürümlerde kullanılabilir. Bu özellik, yaygın olarak kullanılan namespace'lerin otomatik olarak dahil edilmesini sağlar. Böylece, her dosyada bu namespace'leri manuel olarak eklemenize gerek kalmaz.-->
   </PropertyGroup>
 
   <ItemGroup>
+	  
     <PackageReference Include="Bogus" Version="35.6.3" />
+	  <!--
+Bogus, sahte veriler (fake names, emails, descriptions vs.) üretmek için kullanılır.
+Proje başında test verisi oluşturmak için çok kullanışlıdır.
+Veritabanına rastgele aktör, film gibi veriler eklemede kullanılır.
+-->
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9">
       <PrivateAssets>all</PrivateAssets>
