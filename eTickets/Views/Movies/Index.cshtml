@@ -1,0 +1,65 @@
+﻿@model IEnumerable<eTickets.Models.Movie>
+
+@{
+    ViewData["Title"] = "Movies List";
+}
+
+<div class="container mt-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+
+                    <div class="card-header text-white bg-info py-3">
+                        <h5 class="card-title mb-0 d-flex justify-content-between align-items-center">
+                            @item.Name
+                            <a asp-action="Edit" asp-route-id="@item.MovieId" class="text-white">
+                                <i class="bi bi-pencil-square"></i>
+                            </a>
+                        </h5>
+                    </div>
+
+
+                    <div class="row g-0">
+                        <div class="col-md-5">
+                            <img src="@item.ImageURL"
+                                 alt="@item.Name"
+                                 class="img-fluid rounded-start"
+                                 style="height: 100%; object-fit: cover;" />
+                        </div>
+
+                        <div class="col-md-7">
+                            <div class="card-body">
+                                <p class="card-text text-muted">@item.Description</p>
+                                <p class="card-text"><b>🎭 Cinema:</b> @(item.Cinema?.Name ?? "No Cinema")</p>
+                                <p class="card-text"><b>📂 Category:</b> @item.MovieCategory</p>
+                                <p class="card-text"><b>⏱ Start Date:</b> @item.StartDate.ToString("dd MMM yyyy")</p>
+                                <p class="card-text"><b>⏱ End Date:</b> @item.EndDate.ToString("dd MMM yyyy")</p>
+                                <p class="card-text d-flex align-items-center">
+                                    <b>Status:</b>
+                                    <span class="badge
+                                            @(DateTime.Now > item.EndDate ? "bg-danger" : "bg-success") ms-2">
+                                        <i class="bi
+                                                @(DateTime.Now > item.EndDate ? "bi-x-circle-fill" : "bi-check-circle-fill") me-2"></i> 
+                                        @(DateTime.Now > item.EndDate ? "Expired" : "Available")
+                                    </span>
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <a asp-action="AddToCart" asp-route-id="@item.MovieId" class="btn btn-success btn-sm text-white">
+                            <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.MovieId" class="btn btn-outline-primary btn-sm">
+                            <i class="bi bi-eye-fill"></i> Show Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

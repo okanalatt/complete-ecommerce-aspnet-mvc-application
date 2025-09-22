@@ -8,13 +8,29 @@ namespace eTickets.Models
     {
         [Key] //    Primary Key
         public int MovieId { get; set; } // Movie Id Property
+
+        [Display(Name = "Movie Name")]
         public string Name { get; set; } // Movie Name Property
+
+        [Display(Name = "Movie Description")]
         public string Description { get; set; } //  Movie Description Property
+
+        [Display(Name = "Movie Price")]
         public double Price { get; set; } // Movie Price Property
+
+        [Display(Name = "Movie Image")]
         public string ImageURL { get; set; } // Movie ImageURL Property
+
+        [Display(Name = "Movie Start Date")]
         public DateTime StartDate { get; set; } // Movie StartDate Property
+
+        [Display(Name = "Movie End Date")]
         public DateTime EndDate { get; set; } // Movie EndDate Property
+
+        [Display(Name = "Movie Category")]
         public MovieCategory MovieCategory { get; set; } // Movie Category Property
+
+
 
         //Relationships
         public List<Actor_Movie> Actor_Movies { get; set; } // List of Actors associated with the Movie

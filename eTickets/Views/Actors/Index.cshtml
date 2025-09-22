@@ -8,7 +8,7 @@
     <table class="table table-bordered table-hover text-center align-middle shadow-sm">
         <thead class="table-dark">
             <tr>
-                <th style="width:250px;">@Html.DisplayNameFor(model=>model.ProfilePictureURL)</th>
+                <th style="width:250px;">@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
                 <th>@Html.DisplayNameFor(model => model.FullName)</th>
                 <th>@Html.DisplayNameFor(model => model.Bio)</th>
                 <th style="width:300px;">Actions</th>
@@ -19,9 +19,9 @@
             {
                 <tr>
                     <td class="align-middle">
-                        <img src="@actor.ProfilePictureURL" alt="@actor.FullName"  class="rounded-circle" style="max-width:150px;"  />
+                        <img src="@actor.ProfilePictureURL" alt="@actor.FullName" class="rounded-circle" style="width:200px; height:200px; object-fit:cover;" />
                     </td>
-                    <td class="fw-bold">@Html.DisplayFor(modelItem=>actor.FullName)</td>
+                    <td class="fw-bold">@Html.DisplayFor(modelItem => actor.FullName)</td>
                     <td class="text-muted">@Html.DisplayFor(modelItem => actor.Bio)</td>
                     <td>
                         <a asp-action="Edit" asp-route-id="@actor.ActorId" class="btn btn-sm btn-warning me-2">✏️ Edit</a>
@@ -32,4 +32,8 @@
             }
         </tbody>
     </table>
+</div>
+
+<div class="text-white">
+    <a asp-controller="Actors" asp-action="Create" class="btn btn-success position-fixed" style="bottom:20px; right:20px; border-radius:50%; width:70px; height:70px; font-size:24px; display:flex; align-items:center; justify-content:center;">Add New</a>
 </div>
