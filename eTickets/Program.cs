@@ -33,6 +33,5 @@ app.MapControllerRoute(
 
 
 
-AppDbInitializer.Seed(app); // Uygulama açýlýrken rastgele veri eklenir
 
 app.Run(); // Uygulamayý çalýþtýr

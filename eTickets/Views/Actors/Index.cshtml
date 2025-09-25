@@ -2,97 +2,64 @@
 
 @{
     ViewData["Title"] = "Actors List";
-
-    var firstActor = Model?.FirstOrDefault();
-    var properties = firstActor != null
-        ? firstActor.GetType().GetProperties()
-        : new System.Reflection.PropertyInfo[] { };
 }
 
-<div class="container mt-4">
-    <h2 class="text-center mb-4"><i class="bi bi-people-fill"></i> Actors List</h2>
+<div class="container mt-5">
+    <h2 class="text-center mb-5 text-primary"><i class="bi bi-people-fill"></i> Actors List</h2>
 
     @if (!Model.Any())
     {
-        <p class="text-center">No actors found.</p>
+        <p class="text-center text-muted fs-5">No actors found.</p>
     }
     else
     {
-        <table class="table table-bordered table-hover text-center align-middle shadow-sm">
-            <thead class="table-dark">
-                <tr>
-                    @foreach (var prop in properties)
-                    {
-                        if (prop.Name == "ProfilePictureURL")
-                        {
-                            <th style="width: 200px;">@prop.Name</th>
-                        }
-                        else if (prop.Name == "ActorId")
-                        {
-                            // ID kolonunu gizleyelim, lazım değil burada
-                        }
-                        else
-                        {
-                            <th>@prop.Name</th>
-                        }
-                    }
-                    <th style="width: 300px;">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var actor in Model)
-                {
-                    <tr>
-                        @foreach (var prop in properties)
-                        {
-                            if (prop.Name == "ActorId")
-                            {
-                                // ID gizli, atla
-                            }
-                            else if (prop.Name == "ProfilePictureURL")
-                            {
-                                var url = prop.GetValue(actor) as string;
-                                <td class="align-middle">
-                                    @if (!string.IsNullOrEmpty(url))
-                                    {
-                                        <img src="@url" alt="@actor.FullName" class="rounded-circle shadow-sm" style="width: 150px; height: 150px; object-fit: cover;" />
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">No Image</span>
-                                    }
-                                </td>
-                            }
-                            else
-                            {
-                                <td class="align-middle">
-                                    @prop.GetValue(actor)
-                                </td>
-                            }
-                        }
-                        <td class="align-middle">
-                            <a asp-action="Edit" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-warning me-2">
+        <div class="list-group">
+            @foreach (var actor in Model)
+            {
+                <div class="list-group-item mb-3 shadow-sm rounded-4 d-flex flex-column flex-md-row align-items-center p-3 position-relative">
+
+                    <!-- Profil Resmi -->
+                    <img src="@(!string.IsNullOrEmpty(actor.ProfilePictureURL) ? actor.ProfilePictureURL : "https://via.placeholder.com/200")"
+                         alt="@actor.FullName"
+                         class="rounded-circle shadow-sm mb-3 mb-md-0"
+                         style="width:180px; height:180px; object-fit:cover; transition: transform 0.3s;"
+                         onmouseover="this.style.transform='scale(1.08)';"
+                         onmouseout="this.style.transform='scale(1)';" />
+
+                    <!-- Bilgiler ve Butonlar -->
+                    <div class="ms-md-4 flex-grow-1 d-flex flex-column justify-content-between w-100">
+                        <div class="text-center text-md-start">
+                            <h4 class="fw-bold mb-2">@actor.FullName</h4>
+                            <p class="text-muted mb-0" style="line-height:1.4;">@actor.Bio</p>
+                        </div>
+
+                        <!-- Action Butonları sağda -->
+                        <div class="d-flex justify-content-center justify-content-md-end gap-2 mt-3">
+                            <a asp-action="Edit" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-warning">
                                 <i class="bi bi-pencil-square"></i> Edit
                             </a>
-                            <a asp-action="Details" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-info me-2">
+                            <a asp-action="Details"  asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-info">
                                 <i class="bi bi-file-earmark-text"></i> Details
                             </a>
                             <a asp-action="Delete" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-danger">
                                 <i class="bi bi-trash-fill"></i> Delete
                             </a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     }
 </div>
 
 <div class="text-white">
-    <a asp-controller="Actors" asp-action="Create" class="btn btn-success position-fixed"
-       style="bottom:20px; right:20px; border-radius:50%; width:70px; height:70px; font-size:24px;
-              display:flex; align-items:center; justify-content:center;"
-       title="Add New Actor">
+    <a asp-controller="Actors" asp-action="Create"
+       class="btn btn-success position-fixed shadow d-flex align-items-center gap-2"
+       style="bottom:20px; right:20px; border-radius:12px; padding:12px 20px; font-size:16px; transition: all 0.2s;"
+       title="Add New Actor"
+       onmouseover="this.style.transform='scale(1.05)';"
+       onmouseout="this.style.transform='scale(1)';">
         <i class="bi bi-plus"></i>
+        Add New Actor
     </a>
 </div>

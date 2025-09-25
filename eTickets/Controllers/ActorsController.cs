@@ -17,7 +17,7 @@ namespace eTickets.Controllers
         //Get: Actors
         public async Task<IActionResult> Index()
         {
-            var actors = await _service.GetAll();
+            var actors = await _service.GetAllAsync();
             return View(actors);
         }
 
@@ -27,20 +27,32 @@ namespace eTickets.Controllers
             return View();
         }
 
-        //#region Chatgpt
-        //// POST: Actors/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("FullName,Bio,ProfilePictureURL")] Actor actor)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(actor);
-        //    }
+        // POST: Actors/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("FullName,Bio,ProfilePictureURL")] Actor actorDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(actorDto);
+            }
 
-        //    await _service.AddAsync(actor);
-        //    return RedirectToAction(nameof(Index));
-        //}
+            var actor = new Actor
+            {
+                FullName = actorDto.FullName,
+                Bio = actorDto.Bio,
+                ProfilePictureURL = actorDto.ProfilePictureURL,
+                Actor_Movies = new List<Actor_Movie>() // boş liste
+            };
+
+            await _service.AddAsync(actor);
+
+            // Başarılı mesajı TempData yerine ViewData ile sayfada göstereceğiz
+            ViewData["SuccessMessage"] = "Actor eklendi!";
+            ModelState.Clear();
+            // Sayfada kalmak için View(actorDto) döndür
+            return View(new Actor());
+        }
 
         //// GET: Actors/Edit/5
         //public async Task<IActionResult> Edit(int id)
@@ -86,13 +98,13 @@ namespace eTickets.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        //// GET: Actors/Details/5
-        //public async Task<IActionResult> Details(int id)
-        //{
-        //    var actor = await _service.GetByIdAsync(id);
-        //    if (actor == null) return NotFound();
-        //    return View(actor);
-        //}
-        //#endregion
+        // GET: Actors/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            var actorDetails = await _service.GetByIdAsync(id);
+            if (actorDetails == null) return View("NotFound");
+            return View(actorDetails);
+        }
+        
     }
 }
