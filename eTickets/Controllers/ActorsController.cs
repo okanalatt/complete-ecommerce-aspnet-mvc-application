@@ -1,5 +1,4 @@
-﻿using eTickets.Data;
-using eTickets.Data.Services;
+﻿using eTickets.Data.Services;
 using eTickets.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,20 +13,23 @@ namespace eTickets.Controllers
             _service = service;
         }
 
-        //Get: Actors
+        // GET: Actors
+        // Tüm aktörleri listeleyen sayfa
         public async Task<IActionResult> Index()
         {
             var actors = await _service.GetAllAsync();
             return View(actors);
         }
 
-        //Get: Actors/Create
+        // GET: Actors/Create
+        // Yeni aktör ekleme sayfasını açar
         public IActionResult Create()
         {
             return View();
         }
 
         // POST: Actors/Create
+        // Yeni aktör ekleme formundan gelen verileri veritabanına kaydeder
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FullName,Bio,ProfilePictureURL")] Actor actorDto)
@@ -42,69 +44,68 @@ namespace eTickets.Controllers
                 FullName = actorDto.FullName,
                 Bio = actorDto.Bio,
                 ProfilePictureURL = actorDto.ProfilePictureURL,
-                Actor_Movies = new List<Actor_Movie>() // boş liste
+                Actor_Movies = new List<Actor_Movie>()
             };
 
             await _service.AddAsync(actor);
 
-            // Başarılı mesajı TempData yerine ViewData ile sayfada göstereceğiz
+            // Başarılı mesaj göstermek için ViewData kullanıyoruz
             ViewData["SuccessMessage"] = "Actor eklendi!";
             ModelState.Clear();
-            // Sayfada kalmak için View(actorDto) döndür
             return View(new Actor());
         }
 
-        //// GET: Actors/Edit/5
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    var actor = await _service.GetByIdAsync(id);
-        //    if (actor == null) return NotFound();
-        //    return View(actor);
-        //}
+        // GET: Actors/Edit/5
+        // Düzenlenecek aktör bilgilerini getirir
+        public async Task<IActionResult> Edit(int id)
+        {
+            var actordetails = await _service.GetByIdAsync(id);
+            if (actordetails == null) return View("NotFound");
+            return View(actordetails);
+        }
 
-        //// POST: Actors/Edit/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("ActorId,FullName,Bio,ProfilePictureURL")] Actor actor)
-        //{
-        //    if (id != actor.ActorId)
-        //    {
-        //        return BadRequest();
-        //    }
+        // POST: Actors/Edit/5
+        // Aktör bilgilerini günceller
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ActorId,FullName,Bio,ProfilePictureURL")] Actor actor)
+        {
+            if (!ModelState.IsValid) return View(actor);
 
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(actor);
-        //    }
+            if (id != actor.ActorId) return BadRequest();
 
-        //    await _service.UpdateAsync(actor);
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //// GET: Actors/Delete/5
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var actor = await _service.GetByIdAsync(id);
-        //    if (actor == null) return NotFound();
-        //    return View(actor);
-        //}
-
-        //// POST: Actors/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    await _service.DeleteAsync(id);
-        //    return RedirectToAction(nameof(Index));
-        //}
+            await _service.UpdateAsync(id, actor);
+            return RedirectToAction(nameof(Index));
+        }
 
         // GET: Actors/Details/5
+        // Bir aktörün detay sayfasını açar
         public async Task<IActionResult> Details(int id)
         {
             var actorDetails = await _service.GetByIdAsync(id);
             if (actorDetails == null) return View("NotFound");
             return View(actorDetails);
         }
-        
+
+        // GET: Actors/Delete/5
+        // Silinecek aktörün bilgilerini gösterir (onay sayfası)
+        public async Task<IActionResult> Delete(int id)
+        {
+            var actor = await _service.GetByIdAsync(id);
+            if (actor == null) return View("NotFound");
+            return View(actor);
+        }
+
+        // POST: Actors/Delete/5
+        // Aktörü veritabanından siler
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var actor = await _service.GetByIdAsync(id);
+            if (actor == null) return View("NotFound");
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

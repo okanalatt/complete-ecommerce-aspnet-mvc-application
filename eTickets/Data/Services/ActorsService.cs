@@ -11,35 +11,45 @@ namespace eTickets.Data.Services
         {
             _context = context;
         }
+
         public async Task AddAsync(Actor actor)
         {
             await _context.Actors.AddAsync(actor);
             await _context.SaveChangesAsync();
-
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+
+            var result = await _context.Actors.FirstOrDefaultAsync(n => n.ActorId == id);
+            if (result != null)
+            {
+                _context.Actors.Remove(result);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<Actor>> GetAllAsync()
         {
-            var result = await _context.Actors
-                .ToListAsync();
-            return result;
+            return await _context.Actors.ToListAsync();
         }
 
         public async Task<Actor> GetByIdAsync(int id)
         {
-            var result = await _context.Actors
-                .FirstOrDefaultAsync(n => n.ActorId == id);
-            return result;
+            return await _context.Actors.FirstOrDefaultAsync(n => n.ActorId == id);
         }
 
-        public Actor Update(int id, Actor newActor)
+        public async Task<Actor> UpdateAsync(int id, Actor newActor)
         {
-            throw new NotImplementedException();
+            var existingActor = await _context.Actors.FirstOrDefaultAsync(a => a.ActorId == id);
+            if (existingActor == null) return null;
+
+            existingActor.FullName = newActor.FullName;
+            existingActor.Bio = newActor.Bio;
+            existingActor.ProfilePictureURL = newActor.ProfilePictureURL;
+
+            await _context.SaveChangesAsync();
+            return existingActor;
         }
     }
 }
