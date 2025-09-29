@@ -35,13 +35,13 @@
 
                         <!-- Action Butonları sağda -->
                         <div class="d-flex justify-content-center justify-content-md-end gap-2 mt-3">
-                            <a asp-action="Edit" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-warning">
+                            <a asp-action="Edit" asp-route-id="@actor.Id" class="btn btn-sm btn-outline-warning">
                                 <i class="bi bi-pencil-square"></i> Edit
                             </a>
-                            <a asp-action="Details" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-info">
+                            <a asp-action="Details" asp-route-id="@actor.Id" class="btn btn-sm btn-outline-info">
                                 <i class="bi bi-file-earmark-text"></i> Details
                             </a>
-                            <a asp-action="Delete" asp-route-id="@actor.ActorId" class="btn btn-sm btn-outline-danger">
+                            <a asp-action="Delete" asp-route-id="@actor.Id" class="btn btn-sm btn-outline-danger">
                                 <i class="bi bi-trash-fill"></i> Delete
                             </a>
                         </div>

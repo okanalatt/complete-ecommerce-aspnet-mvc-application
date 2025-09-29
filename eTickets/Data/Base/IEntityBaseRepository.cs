@@ -7,7 +7,7 @@ namespace eTickets.Data.Base
         Task<IEnumerable<T>> GetAllAsync(); //Tum aktorleri getir
         Task<T> GetByIdAsync(int id); //Id ye gore aktor getir
         Task AddAsync(T entity); //Yeni aktor ekle
-        Task<T> UpdateAsync(int id, T entity); //Id ye gore aktor guncelle
+        Task UpdateAsync(int id, T entity); //Id ye gore aktor guncelle
         Task DeleteAsync(int id); //Id ye gore aktor sil
     }
 }

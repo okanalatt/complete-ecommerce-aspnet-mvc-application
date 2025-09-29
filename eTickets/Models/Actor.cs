@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eTickets.Data.Base;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eTickets.Models 
 {
-    public class Actor //actor entity
+    [Table("Actors")]
+    public class Actor :IEntityBase
     {
         [Key] // Primary Key
-        public int ActorId { get; set; } // Actor Id Property
+        [Column("ActorId")]
+        public int Id { get; set; } // Actor Id Property
 
         [Display(Name = "Profile Picture")] // Display Name for Profile Picture
         [Required(ErrorMessage ="Profil resmi gerekli")]

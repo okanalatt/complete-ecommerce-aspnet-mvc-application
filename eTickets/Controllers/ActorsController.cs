@@ -68,11 +68,11 @@ namespace eTickets.Controllers
         // Aktör bilgilerini günceller
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ActorId,FullName,Bio,ProfilePictureURL")] Actor actor)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Bio,ProfilePictureURL")] Actor actor)
         {
             if (!ModelState.IsValid) return View(actor);
 
-            if (id != actor.ActorId) return BadRequest();
+            if (id != actor.Id) return BadRequest();
 
             await _service.UpdateAsync(id, actor);
             return RedirectToAction(nameof(Index));
