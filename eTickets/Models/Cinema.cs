@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eTickets.Models
 {
     public class Cinema // Cinema entity
     {
         [Key] // Primary Key
-        public int CinemaId { get; set; } // Cinema Id Property
+        [Column("CinemaId")]
+        public int Id { get; set; } // Cinema Id Property
 
         [Display(Name = "Logo")]
         public string Logo { get; set; } // Cinema Logo Property   

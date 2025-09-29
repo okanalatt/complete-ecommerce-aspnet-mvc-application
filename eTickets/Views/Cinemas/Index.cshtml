@@ -25,13 +25,13 @@
                         <p class="card-text text-muted">@cinema.Description</p>
                     </div>
                     <div class="card-footer d-flex justify-content-center gap-2 bg-white border-0">
-                        <a asp-action="Edit" asp-route-id="@cinema.CinemaId" class="btn btn-sm btn-warning">
+                        <a asp-action="Edit" asp-route-id="@cinema.Id" class="btn btn-sm btn-warning">
                             <i class="bi bi-pencil-square"></i> Edit
                         </a>
-                        <a asp-action="Details" asp-route-id="@cinema.CinemaId" class="btn btn-sm btn-info text-white">
+                        <a asp-action="Details" asp-route-id="@cinema.Id" class="btn btn-sm btn-info text-white">
                             <i class="bi bi-eye-fill"></i> Details
                         </a>
-                        <a asp-action="Delete" asp-route-id="@cinema.CinemaId" class="btn btn-sm btn-danger">
+                        <a asp-action="Delete" asp-route-id="@cinema.Id" class="btn btn-sm btn-danger">
                             <i class="bi bi-trash-fill"></i> Delete
                         </a>
                     </div>

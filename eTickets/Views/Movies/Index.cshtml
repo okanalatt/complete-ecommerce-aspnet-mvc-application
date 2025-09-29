@@ -14,7 +14,7 @@
                     <div class="card-header text-white bg-info py-3">
                         <h5 class="card-title mb-0 d-flex justify-content-between align-items-center">
                             @item.Name
-                            <a asp-action="Edit" asp-route-id="@item.MovieId" class="text-white" title="Edit movie">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="text-white" title="Edit movie">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                         </h5>
@@ -55,10 +55,10 @@
                     </div>
 
                     <div class="card-footer d-flex justify-content-between align-items-center">
-                        <a asp-action="AddToCart" asp-route-id="@item.MovieId" class="btn btn-success btn-sm text-white" title="Add to cart">
+                        <a asp-action="AddToCart" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white" title="Add to cart">
                             <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
                         </a>
-                        <a asp-action="Details" asp-route-id="@item.MovieId" class="btn btn-outline-primary btn-sm" title="View movie details">
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm" title="View movie details">
                             <i class="bi bi-eye-fill"></i> Show Details
                         </a>
                     </div>

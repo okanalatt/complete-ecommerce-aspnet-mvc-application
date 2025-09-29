@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args); // Uygulama yapýlandýrýcýsýný 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // Veritabaný baðlantýsýný yapýlandýr
 
 builder.Services.AddScoped<IActorsService, ActorsService>(); // Servisleri DI konteynerine ekle
+builder.Services.AddScoped<IProducersService, ProducersService>(); 
 
 builder.Services.AddControllersWithViews(); // MVC'yi ekle
 

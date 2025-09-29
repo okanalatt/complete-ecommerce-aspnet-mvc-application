@@ -35,15 +35,15 @@
                     </td>
                         <td>
                         <div class="d-flex justify-content-center gap-2 flex-wrap">
-                            <a asp-action="Edit" asp-route-id="@producer.ProducerId"
+                            <a asp-action="Edit" asp-route-id="@producer.Id"
                                class="btn btn-warning btn-sm" aria-label="Edit Producer">
                                 <i class="bi bi-pencil-square"></i> Edit
                             </a>
-                            <a asp-action="Details" asp-route-id="@producer.ProducerId"
+                                <a asp-action="Details" asp-route-id="@producer.Id"
                                class="btn btn-info btn-sm text-white" aria-label="View Details">
                                 <i class="bi bi-info-circle"></i> Details
                             </a>
-                            <a asp-action="Delete" asp-route-id="@producer.ProducerId"
+                                <a asp-action="Delete" asp-route-id="@producer.Id"
                                class="btn btn-danger btn-sm" aria-label="Delete Producer"
                                onclick="return confirm('Are you sure you want to delete this producer?');">
                                 <i class="bi bi-trash"></i> Delete

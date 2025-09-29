@@ -8,7 +8,8 @@ namespace eTickets.Models
     public class Movie ///movie entity
     {
         [Key] //    Primary Key
-        public int MovieId { get; set; } // Movie Id Property
+        [Column("MovieId")]
+        public int Id { get; set; } // Movie Id Property
 
         [Display(Name = "Movie Name")]
         public string Name { get; set; } // Movie Name Property

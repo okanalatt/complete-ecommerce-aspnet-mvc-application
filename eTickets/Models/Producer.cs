@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eTickets.Data.Base;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eTickets.Models
 {
-    public class Producer // Producer entity
+    public class Producer:IEntityBase 
     {
-        [Key] // Primary Key
-        public int ProducerId { get; set; } // Producer Id Property
+
+        [Key]
+        [Column("ProducerId")]
+        public int Id { get; set; } // Producer Id Property
 
 
         [Display(Name ="Profile Picture")]
